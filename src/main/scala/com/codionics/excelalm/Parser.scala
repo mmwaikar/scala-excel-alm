@@ -8,27 +8,6 @@ import com.typesafe.scalalogging.Logger
 object Parser {
   val logger = Logger(Parser.getClass)
 
-  def parseFirst(cellText: String): Seq[String] = {
-//    val srsPattern = "SRS: (\\d)*(.*?)SRS:(\\d)*"
-//    val ssrsLabellingPattern = "SSRS_Labeling: (\\d)*(.*?)SSRS_Labeling:(\\d)*"
-
-    val srsPattern = "SRS: (\\d)*|SRS:(\\d)*"
-    val ssrsLabellingPattern = "SSRS_Labeling: (\\d)*|SSRS_Labeling:(\\d)*"
-
-    val pattern = s"$srsPattern(.*?)$ssrsLabellingPattern".r
-    logger.debug(s"pattern: $pattern")
-    pattern findAllIn cellText toSeq
-  }
-
-  def parse(cellText: String): Seq[String] = {
-    val patternWithoutSpace = "SRS:(\\d)*(.*?)SSRS_Labeling:(\\d)*"
-    val patternWithSpace = "SRS: (\\d)*(.*?)SSRS_Labeling: (\\d)*"
-
-    val pattern = s"$patternWithoutSpace|$patternWithSpace".r
-    logger.debug(s"pattern: $pattern")
-    pattern findAllIn cellText toSeq
-  }
-
   def parseSrs(cellText: String): Seq[String] = {
     getParseFn(Constants.srsWithSpace, Constants.srsWithoutSpace)(cellText)
   }
@@ -73,6 +52,29 @@ object Parser {
     getParseFn(Constants.ssrsCoolingWithSpace, Constants.ssrsCoolingWithoutSpace)(cellText)
   }
 
+  def parseAll(cellText: String): Seq[String] = {
+    val allSrs = parseSrs(cellText)
+    val allSsrsLabeling = parseSsrsLabeling(cellText)
+    val allSsrsSt = parseSsrsSt(cellText)
+    val allSsrsAws = parseSsrsAws(cellText)
+    val allSsrsAwp = parseSsrsAwp(cellText)
+    val allSsrsCcs = parseSsrsCcs(cellText)
+    val allSsrsPos = parseSsrsPos(cellText)
+    val allSsrsIrap = parseSsrsIrap(cellText)
+    val allSsrsXray = parseSsrsXray(cellText)
+    val allSsrsAwm = parseSsrsAwm(cellText)
+    val allSsrsCooling = parseSsrsCooling(cellText)
+
+    val all = allSrs ++ allSsrsLabeling ++ allSsrsSt ++ allSsrsAws ++ allSsrsAwp ++
+      allSsrsCcs ++ allSsrsPos ++ allSsrsIrap ++ allSsrsXray ++ allSsrsAwm ++ allSsrsCooling
+    /**
+      * NOTE: Since a Seq is lazy, the below logging statement materializes
+      * the Seq, hence please don't remove it.
+      */
+    logger.debug(s"all count: ${all.size}")
+    all
+  }
+
   private def getParseFn(withSpace: String, withoutSpace: String) = (cellText: String) => {
     val patternWithoutSpace = withoutSpace.r
     val withoutSpaces = (patternWithoutSpace findAllIn cellText).toSeq
@@ -83,7 +85,11 @@ object Parser {
 //    logger.debug(s"withSpaces: ${withSpaces.mkString(", ")}")
 
     val all = withSpaces ++ withoutSpaces
-    logger.debug(s"all: ${all.mkString(", ")}")
+    /**
+      * NOTE: Since a Seq is lazy, the below logging statement materializes
+      * the Seq, hence please don't remove it.
+      */
+    logger.debug(s"all for: ${all.mkString(", ")}")
     all
   }
 }
