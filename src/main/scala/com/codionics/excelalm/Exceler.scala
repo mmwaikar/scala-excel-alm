@@ -18,7 +18,7 @@ object Exceler {
     println(s"Current dir: $currentDir")
 
     val excelData = readExcel("docs/DOC-HTMR-9PPGPZ-5.5.csv")
-    val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
+    val interimData = excelData.map(ed => InterimData(ed.risk, Parser.parseAll(ed.rcm), true))
     logger.debug(s"interim data: ${interimData}")
 
     val finalData = ListBuffer[ExcelData]()
@@ -39,8 +39,8 @@ object Exceler {
   }
 
   def createCsvFile(path: String, data: Seq[ExcelData]) = {
-    val header = List("Output")
-    val outputData = data.map(d => Seq(s"${d.risk} trace to ${d.rcm}"))
+    val header = List(Constants.outputCol)
+    val outputData = data.map(d => Seq(s"${d.risk} Traced To ${d.rcm}"))
     writeToCsvFile(path, header, outputData)
   }
 
