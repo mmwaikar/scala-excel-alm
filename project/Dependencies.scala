@@ -7,6 +7,7 @@ object Dependencies {
   lazy val poiOoXml = "org.apache.poi" % "poi-ooxml" % "3.16"
   lazy val stax = "stax" % "stax-api" % "1.0.1"
   lazy val scalaCsv = "com.github.tototoshi" %% "scala-csv" % "1.3.4"
+  lazy val scopt = "com.github.scopt" %% "scopt" % "3.5.0"
 //  lazy val spark = "org.apache.spark" %% "spark-core_2.11" % "2.1.0"
 //  lazy val sparkExcel = "com.crealytics" %% "spark-excel_2.11" % "0.8.2"
 

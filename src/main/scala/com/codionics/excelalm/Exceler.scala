@@ -17,7 +17,20 @@ object Exceler {
     val currentDir = System.getProperty("user.dir")
     println(s"Current dir: $currentDir")
 
-    val excelData = readExcel("docs/DOC-HTMR-9PPGPZ-5.5.csv")
+    val cmdLineParser = CmdLineParser.getParser()
+    val optConfig = CmdLineParser.parseCmdLineArgs(cmdLineParser, args)
+
+    optConfig match {
+      case Some(config) => readAndWrite(config)
+      case None =>
+    }
+  }
+
+  def readAndWrite(config: Config) = {
+    val inputCsvPath = s"${config.dirName}/${config.inputFileName}"
+    val outputCsvPath = s"${config.dirName}/${config.outputFileName}"
+
+    val excelData = readExcel(inputCsvPath)
     val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
     logger.debug(s"interim data: ${interimData}")
 
@@ -28,7 +41,7 @@ object Exceler {
     })
     logger.debug(s"final data: ${finalData}")
 
-    createCsvFile("docs/output.csv", finalData)
+    createCsvFile(outputCsvPath, finalData)
   }
 
   def readExcel(filename: String): List[ExcelData] = {
