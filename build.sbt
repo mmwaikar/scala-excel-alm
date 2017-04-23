@@ -12,6 +12,12 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       logback,
       scalaLogging,
+      scalaCsv,
+//      poi,
+//      stax,
+//      poiOoXml,
+//      spark,
+//      sparkExcel,
 
       scalaTest % Test
     )

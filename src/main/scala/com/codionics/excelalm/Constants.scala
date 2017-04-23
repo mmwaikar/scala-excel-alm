@@ -4,6 +4,10 @@ package com.codionics.excelalm
   * Created by mmwaikar on 22-04-17.
   */
 object Constants {
+  val riskColumn = "Risk"
+  val rcmColumn = "Risk Control Measure"
+  val outputCol = "Risk Coverage from Risk table"
+
   val srsWithSpace = "SRS: (\\d)+"
   val srsWithoutSpace = "SRS:(\\d)+"
 
