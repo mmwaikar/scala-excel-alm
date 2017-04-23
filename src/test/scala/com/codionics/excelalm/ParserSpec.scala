@@ -10,10 +10,6 @@ import com.codionics.excelalm.Constants._
 class ParserSpec extends BaseSpec {
   val logger = Logger[ParserSpec]
 
-  val stringsToFind = Array("SRS", "SSRS_Labeling", "SSRS_ST", "SSRS_AWS",
-    "SSRS_AWP", "SSRS_CCS", "SSRS_Pos", "SSRS_IRAP", "SSRS_XRAY",
-    "SSRS_AWM", "SSRS_Cooling")
-
   "A parser" should "parse SRS" in {
     test("SRS", Parser.parseSrs)
   }
@@ -59,7 +55,7 @@ class ParserSpec extends BaseSpec {
   }
 
   it should "parse all" in {
-    val arrStrs = stringsToFind map getStringsToFind
+    val arrStrs = Constants.stringsToFind map getStringsToFind
     val cellTexts = arrStrs.map(arr => getCellTextToMatch(arr(0), arr(1)))
     val combinedCellText = cellTexts.mkString(System.lineSeparator())
     logger.debug(s"combinedCellText: $combinedCellText")

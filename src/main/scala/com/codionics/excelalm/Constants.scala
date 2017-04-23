@@ -40,4 +40,8 @@ object Constants {
 
   val ssrsCoolingWithSpace = "SSRS_Cooling: (\\d)+"
   val ssrsCoolingWithoutSpace = "SSRS_Cooling:(\\d)+"
+
+  val stringsToFind = Array("SRS", "SSRS_Labeling", "SSRS_ST", "SSRS_AWS",
+    "SSRS_AWP", "SSRS_CCS", "SSRS_Pos", "SSRS_IRAP", "SSRS_XRAY",
+    "SSRS_AWM", "SSRS_Cooling")
 }

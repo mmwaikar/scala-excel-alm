@@ -18,7 +18,7 @@ object Exceler {
     println(s"Current dir: $currentDir")
 
     val excelData = readExcel("docs/DOC-HTMR-9PPGPZ-5.5.csv")
-    val interimData = excelData.map(ed => InterimData(ed.risk, Parser.parseAll(ed.rcm)))
+    val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
     logger.debug(s"interim data: ${interimData}")
 
     val finalData = ListBuffer[ExcelData]()
@@ -31,16 +31,6 @@ object Exceler {
     createCsvFile("docs/output.csv", finalData)
   }
 
-//  def readExcel(filename: String): List[Map[String, String]] = {
-//    val reader = CSVReader.open(new File(filename))
-//    val rows = reader.allWithHeaders()
-//    val rowsWantedColumns = rows.map(r => r filterKeys(k => k == Constants.riskColumn || k == Constants.rcmColumn))
-//    logger.debug(s"rows with specific columns: ${rowsWantedColumns}")
-//
-//    val data = ListBuffer[String]()
-//    rowsWantedColumns
-//  }
-
   def readExcel(filename: String): List[ExcelData] = {
     val reader = CSVReader.open(new File(filename))
     val rows = reader.allWithHeaders()
@@ -50,7 +40,7 @@ object Exceler {
 
   def createCsvFile(path: String, data: Seq[ExcelData]) = {
     val header = List("Output")
-    val outputData = data.map(d => Seq(d.risk, d.rcm))
+    val outputData = data.map(d => Seq(s"${d.risk} trace to ${d.rcm}"))
     writeToCsvFile(path, header, outputData)
   }
 
