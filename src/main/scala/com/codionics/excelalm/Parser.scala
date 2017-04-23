@@ -20,6 +20,10 @@ object Parser {
     getParseFn(Constants.ssrsStWithSpace, Constants.ssrsStWithoutSpace)(cellText)
   }
 
+  def parseSsrsIa(cellText: String): List[String] = {
+    getParseFn(Constants.ssrsIaWithSpace, Constants.ssrsIaWithoutSpace)(cellText)
+  }
+
   def parseSsrsAws(cellText: String): List[String] = {
     getParseFn(Constants.ssrsAwsWithSpace, Constants.ssrsAwsWithoutSpace)(cellText)
   }
@@ -56,6 +60,7 @@ object Parser {
     val allSrs = parseSrs(cellText)
     val allSsrsLabeling = parseSsrsLabeling(cellText)
     val allSsrsSt = parseSsrsSt(cellText)
+    val allSsrsIa = parseSsrsIa(cellText)
     val allSsrsAws = parseSsrsAws(cellText)
     val allSsrsAwp = parseSsrsAwp(cellText)
     val allSsrsCcs = parseSsrsCcs(cellText)
@@ -65,7 +70,7 @@ object Parser {
     val allSsrsAwm = parseSsrsAwm(cellText)
     val allSsrsCooling = parseSsrsCooling(cellText)
 
-    val all = allSrs ++ allSsrsLabeling ++ allSsrsSt ++ allSsrsAws ++ allSsrsAwp ++
+    val all = allSrs ++ allSsrsLabeling ++ allSsrsSt ++ allSsrsIa ++ allSsrsAws ++ allSsrsAwp ++
       allSsrsCcs ++ allSsrsPos ++ allSsrsIrap ++ allSsrsXray ++ allSsrsAwm ++ allSsrsCooling
     /**
       * NOTE: Since a Seq is lazy, the below logging statement materializes

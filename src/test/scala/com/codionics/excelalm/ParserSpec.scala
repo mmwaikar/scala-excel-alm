@@ -2,7 +2,6 @@ package com.codionics.excelalm
 
 import com.typesafe.scalalogging.Logger
 import org.scalatest.Matchers._
-import com.codionics.excelalm.Constants._
 
 /**
   * Created by mmwaikar on 22-04-17.
@@ -52,6 +51,10 @@ class ParserSpec extends BaseSpec {
 
   it should "parse SSRS Cooling" in {
     test("SSRS_Cooling", Parser.parseSsrsCooling)
+  }
+
+  it should "parse SSRS IA" in {
+    test("SSRS_IA", Parser.parseSsrsIa)
   }
 
   it should "parse all" in {
