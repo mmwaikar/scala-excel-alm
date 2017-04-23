@@ -4,7 +4,7 @@ package com.codionics.excelalm
   * Created by mmwaikar on 22-04-17.
   */
 object Constants {
-  val riskColumn = "Risk"
+  val riskColumn = "Risk ID"
   val rcmColumn = "Risk Control Measure"
   val outputCol = "Risk Coverage from Risk table"
 

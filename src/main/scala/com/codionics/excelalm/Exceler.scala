@@ -18,7 +18,7 @@ object Exceler {
     println(s"Current dir: $currentDir")
 
     val excelData = readExcel("docs/DOC-HTMR-9PPGPZ-5.5.csv")
-    val interimData = excelData.map(ed => InterimData(ed.risk, Parser.parseAll(ed.rcm), true))
+    val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
     logger.debug(s"interim data: ${interimData}")
 
     val finalData = ListBuffer[ExcelData]()
