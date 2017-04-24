@@ -15,7 +15,7 @@ object Exceler {
 
   def main(args: Array[String]): Unit = {
     val currentDir = System.getProperty("user.dir")
-    println(s"Current dir: $currentDir")
+//    println(s"Current dir: $currentDir")
 
     val cmdLineParser = CmdLineParser.getParser()
     val optConfig = CmdLineParser.parseCmdLineArgs(cmdLineParser, args)
@@ -32,14 +32,14 @@ object Exceler {
 
     val excelData = readExcel(inputCsvPath)
     val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
-    logger.debug(s"interim data: ${interimData}")
+//    logger.debug(s"interim data: ${interimData}")
 
     val finalData = ListBuffer[ExcelData]()
     interimData.map(id => {
       val riskId = id.risk
       id.rcms.map(rcm => finalData += ExcelData(riskId, rcm))
     })
-    logger.debug(s"final data: ${finalData}")
+//    logger.debug(s"final data: ${finalData}")
 
     createCsvFile(outputCsvPath, finalData)
   }

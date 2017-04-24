@@ -7,10 +7,20 @@ import scopt.OptionParser
   */
 object CmdLineParser {
   def getParser(): OptionParser[Config] = {
-    val parser = new OptionParser[Config]("scopt") {
-      head("scopt", "3.5.0")
+    val helpMsg =
+      """This utility works with CSV files, so please convert your *.xlsx files to *.csv files.
+        |Please create a docs (or any other name you want) directory to keep your input / output csv files.
+      """.stripMargin
 
-      opt[String]('d', "dirName").required().valueName("<dirName>")
+    val p = getClass.getPackage
+    val name = p.getImplementationTitle
+    val ver = p.getImplementationVersion
+    val usage = s"java -jar $name-assembly-$ver.jar"
+
+    val parser = new OptionParser[Config](usage) {
+      head(name, ver)
+
+      opt[String]('d', "dirName").valueName("<dirName>")
         .action( (x, c) => c.copy(dirName = x) )
         .text("dirName is the name of the directory that contains input files (default - docs)")
 
@@ -18,11 +28,11 @@ object CmdLineParser {
         .action( (x, c) => c.copy(inputFileName = x) )
         .text("inputFileName is the name of the input CSV file (default - input.csv)")
 
-      opt[String]('o', "outputFileName").required().valueName("<outputFileName>")
+      opt[String]('o', "outputFileName").valueName("<outputFileName>")
         .action( (x, c) => c.copy(outputFileName = x) )
         .text("outputFileName is the name of the output CSV file (default - output.csv)")
 
-      help("help").text("prints this usage text")
+      help("help").text(helpMsg)
     }
 
     parser

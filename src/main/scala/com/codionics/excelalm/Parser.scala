@@ -76,7 +76,7 @@ object Parser {
       * NOTE: Since a Seq is lazy, the below logging statement materializes
       * the Seq, hence please don't remove it.
       */
-    logger.debug(s"all count: ${all.size}")
+//    logger.debug(s"all count: ${all.size}")
     all toList
   }
 
@@ -94,7 +94,7 @@ object Parser {
       * NOTE: Since a Seq is lazy, the below logging statement materializes
       * the Seq, hence please don't remove it.
       */
-    logger.debug(s"all for: ${all.mkString(", ")}")
+//    logger.debug(s"all for: ${all.mkString(", ")}")
     all toList
   }
 }
