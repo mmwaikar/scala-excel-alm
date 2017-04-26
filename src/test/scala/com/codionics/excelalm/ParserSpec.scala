@@ -7,7 +7,7 @@ import org.scalatest.Matchers._
   * Created by mmwaikar on 22-04-17.
   */
 class ParserSpec extends BaseSpec {
-  val logger = Logger[ParserSpec]
+  override val logger = Logger[ParserSpec]
 
   "A parser" should "parse SRS" in {
     test("SRS", Parser.parseSrs)
@@ -68,13 +68,13 @@ class ParserSpec extends BaseSpec {
     strings should not be empty
   }
 
-  private def test(prefix: String, parseFn: String => Seq[String]) = {
-    val arr = getStringsToFind(prefix)
-    val cellText = getCellTextToMatch(arr(0), arr(1))
-    logger.debug(s"cellText: $cellText")
-
-    val strings = parseFn(cellText)
-    logger.debug(s"Found: $strings")
-    strings should not be empty
-  }
+//  private def test(prefix: String, parseFn: String => Seq[String]) = {
+//    val arr = getStringsToFind(prefix)
+//    val cellText = getCellTextToMatch(arr(0), arr(1))
+//    logger.debug(s"cellText: $cellText")
+//
+//    val strings = parseFn(cellText)
+//    logger.debug(s"Found: $strings")
+//    strings should not be empty
+//  }
 }

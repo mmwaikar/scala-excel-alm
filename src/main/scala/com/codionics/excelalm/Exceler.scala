@@ -41,7 +41,9 @@ object Exceler {
     })
 //    logger.debug(s"final data: ${finalData}")
 
-    createCsvFile(outputCsvPath, finalData)
+    // since the above data might have some duplicate values, remove them
+    val duplicatesRemoved = finalData.toSet
+    createCsvFile(outputCsvPath, duplicatesRemoved)
   }
 
   def readExcel(filename: String): List[ExcelData] = {
@@ -51,19 +53,19 @@ object Exceler {
     data
   }
 
-  def createCsvFile(path: String, data: Seq[ExcelData]) = {
+  def createCsvFile(path: String, data: Set[ExcelData]) = {
     val header = List(Constants.outputCol)
-    val outputData = data.map(d => Seq(s"${d.risk} Traced To ${d.rcm}"))
+    val outputData: Set[Seq[Any]] = data.map(d => Seq(s"${d.risk} Traced To ${d.rcm}"))
     writeToCsvFile(path, header, outputData)
   }
 
-  def writeToCsvFile(path: String, header: Seq[Any], ts: Seq[Seq[Any]]) = {
+  def writeToCsvFile(path: String, header: Seq[Any], ts: Set[Seq[Any]]) = {
     val f = new File(path)
     if (f.createNewFile()) println("File is created!") else println ("Overwrite already existing file!")
 
     val writer = CSVWriter.open(f)
     writer.writeRow(header)
-    writer.writeAll(ts)
+    writer.writeAll(ts.toSeq)
     writer.close()
   }
 }
