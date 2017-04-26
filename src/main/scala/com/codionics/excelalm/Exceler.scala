@@ -32,6 +32,7 @@ object Exceler {
 
     val excelData = readExcel(inputCsvPath)
     val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
+//    val interimData = excelData.map(ed => InterimData(ed.risk, InterimData.clean(Parser.parseAll(ed.rcm))))
 //    logger.debug(s"interim data: ${interimData}")
 
     val finalData = ListBuffer[ExcelData]()

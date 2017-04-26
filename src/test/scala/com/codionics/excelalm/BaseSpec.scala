@@ -29,8 +29,11 @@ class BaseSpec extends FlatSpec {
   def getMixedCaseStringsToFind(toFind: String) = {
     val lowerColonSpace = toFind.toLowerCase + ": 123"
     val lowerColonNoSpace = toFind.toLowerCase + ":3456"
+    val capitalLowerColonSpace = lowerColonSpace .capitalize
+    val capitalLowerColonNoSpace = lowerColonNoSpace.capitalize
 
-    Array(toFind + ": 123", toFind + ":3456", lowerColonSpace, lowerColonNoSpace)
+    Array(toFind + ": 123", toFind + ":3456", lowerColonSpace, lowerColonNoSpace, capitalLowerColonSpace,
+      capitalLowerColonNoSpace, "SSRS_Irap:1", "ssRs_IrAp: 987")
   }
 
   def testMixCase(prefix: String, parseFn: String => Seq[String]) = {
