@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     inThisBuild(List(
       organization := "com.codionics",
       scalaVersion := "2.12.1",
-      version      := "0.0.1"
+      version      := "0.0.2"
     )),
     name := "scala-excel-alm",
 
